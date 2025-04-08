@@ -117,6 +117,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ user, onStartMeeting, onLo
               <Button
                 onClick={() => setShowCreateModal(true)}
                 className="flex items-center"
+                id='startButton'
               >
                 <Plus className="h-5 w-5 mr-2" />
                 New Meeting

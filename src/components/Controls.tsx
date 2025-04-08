@@ -104,6 +104,7 @@ export const Controls: React.FC<ControlsProps> = ({
           size="icon"
           onClick={onLeaveCall}
           className="rounded-full"
+          id='leaveCallButton'
         >
           <Phone className="w-5 h-5 transform rotate-135" />
         </Button>

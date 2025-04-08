@@ -1,11 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import { VideoGrid } from './components/VideoGrid';
-import { Controls } from './components/Controls';
-import { Chat } from './components/Chat';
+import { useState, useCallback } from 'react';
+// import { VideoGrid } from './components/VideoGrid';
+// import { Controls } from './components/Controls';
+// import { Chat } from './components/Chat';
 import { AuthForm } from './components/AuthForm';
 import { Dashboard } from './components/Dashboard';
 import { ThemeToggle } from './components/theme-toggle';
 import type { Participant, ChatMessage, User, JoinRequest } from './types';
+import MeetingForum from './components/MeetingForum';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -18,6 +19,8 @@ function App() {
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+
+  
 
   // Join requests state
   const [joinRequests, setJoinRequests] = useState<JoinRequest[]>([
@@ -50,7 +53,14 @@ function App() {
     },
     {
       id: '2',
-      name: 'John Doe',
+      name: 'John_Doe',
+      isScreenSharing: false,
+      isMuted: false,
+      isVideoOff: false,
+    },
+    {
+      id: '3',
+      name: 'John_Does',
       isScreenSharing: false,
       isMuted: false,
       isVideoOff: false,
@@ -70,7 +80,7 @@ function App() {
     setIsInCall(false);
   }, []);
 
-  const handleStartMeeting = useCallback(() => {
+  const handleStartMeeting = useCallback(async() => {
     setIsInCall(true);
   }, []);
 
@@ -137,9 +147,26 @@ function App() {
       />
     );
   }
-
-  return (
-    <div className="min-h-screen bg-background">
+  return (<>
+    <MeetingForum 
+      isChatOpen={isChatOpen}
+      isMuted={isMuted}
+      isVideoOff={isVideoOff}
+      participants={participants}
+      isScreenSharing={isScreenSharing}
+      pendingRequests={joinRequests}
+      onToggleMute={handleToggleMute}
+      onToggleVideo={handleToggleVideo}
+      onToggleScreenShare={handleToggleScreenShare}
+      onToggleChat={handleToggleChat}
+      handleSendMessage={handleSendMessage}
+      onLeaveCall={handleLeaveCall}
+      onApproveRequest={handleApproveRequest}
+      onRejectRequest={handleRejectRequest}
+      messages={messages}
+      
+    />
+    {/* <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="flex gap-4">
           <div className={`flex-1 ${isChatOpen ? 'w-3/4' : 'w-full'}`}>
@@ -169,8 +196,8 @@ function App() {
           )}
         </div>
       </div>
-    </div>
-  );
+    </div> */}
+  </>);
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Camera, Mic, MicOff, Video, VideoOff } from 'lucide-react';
+import { Mic, MicOff, Video, VideoOff } from 'lucide-react';
 import type { Participant } from '../types';
 import { cn } from '@/lib/utils';
 
@@ -8,7 +8,6 @@ interface VideoGridProps {
 }
 
 export const VideoGrid: React.FC<VideoGridProps> = ({ participants }) => {
-
   return (
     <div className={`grid grid-cols-2 gap-4 p-4 w-full h-[83vh]`}>
       {participants.map((participant) => (
@@ -22,11 +21,15 @@ export const VideoGrid: React.FC<VideoGridProps> = ({ participants }) => {
           )}
         >
           {!participant.isVideoOff ? (
-            <img
-              src={`https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=800&auto=format&fit=crop&q=80`}
-              alt={participant.name}
-              className="w-full h-full object-cover"
-            />
+            // <img
+            //   src={`https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=800&auto=format&fit=crop&q=80`}
+            //   alt={participant.name}
+            //   className="w-full h-full object-cover"
+            // />
+
+            <>
+              <video id={participant.name} className='video_feed' playsInline autoPlay muted></video>
+            </>
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-muted">
               <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
